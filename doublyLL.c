@@ -24,6 +24,39 @@ int print(struct node*head){
     return p->data;
 }
 
+struct node *insert(struct node *head)
+{
+    int x;
+    printf("enter the index at which you want to insert : ");
+    scanf("%d", &x);
+    if (x == 0)
+    {
+        struct node *r = (struct node *)malloc(sizeof(struct node));
+        printf("enter data : ");
+        scanf("%d", &r->data);
+        r->prv = NULL;
+        r->next = head;
+        head = r;
+        return head;
+    }
+    struct node *p = head;
+    for (int i = 0; i < x - 1; i++)
+    {
+        p = p->next;
+    }
+    struct node *q = (struct node *)malloc(sizeof(struct node));
+    printf("enter the data");
+    scanf("%d", &q->data);
+    q->prv = p;
+    q->next = p->next;
+    p->next = q;
+    p = p->next->next;
+    p->prv = q;
+
+    return head;
+}
+
+
 int main(){
 
     struct node*head=NULL;
@@ -52,8 +85,11 @@ int main(){
     printf("The linked list elements are: \n");
     display(x);
 
-    int z=print(head);
-    printf("%d",z);
+    // int z=print(head);
+    // printf("%d",z);
+
+    head=insert(head);
+    display(head);
 
     return 0;
 }
