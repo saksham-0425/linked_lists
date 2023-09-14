@@ -56,6 +56,42 @@ struct node *insert(struct node *head)
     return head;
 }
 
+struct node* deletion(struct node* head,int n){
+    struct node*p=head;
+    struct node*q=head->next;
+     
+    printf("enter the index at which you want to delete : ");
+    int x;
+    scanf("%d",&x);
+
+    if(x==0){
+        q->prv=NULL;
+        head=q;
+        free(p);
+        return head;
+    }
+
+    if(x==n){
+        while(q->next!=NULL){
+            p=p->next;
+            q=q->next;
+        }
+        p->next=NULL;
+        free(q);
+        return head;
+    }
+
+    for(int i=0;i<x-1;i++){
+        p=p->next;
+        q=q->next;
+    }
+    p->next=q->next;
+    q=q->next;
+    q->prv=p;
+
+    return head;
+}
+
 
 int main(){
 
@@ -91,5 +127,7 @@ int main(){
     head=insert(head);
     display(head);
 
+    head=deletion(head);
+    display(head);
     return 0;
 }
